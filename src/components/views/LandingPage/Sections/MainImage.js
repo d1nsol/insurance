@@ -1,0 +1,25 @@
+import React from 'react';
+
+function MainImage(props) {
+    return (
+        <div style={{background:`linear-gradient(to bottom, rgba(0, 0, 0, 0) 
+            39%,rgba(0, 0, 0, 0)
+            41%,rgba(0, 0, 0, 0.65)
+            100%), url("/images/insurance-main.jpg"), #1c1c1c`,
+            height: '531px',
+            backgroundSize: '100%, cover',
+            backgroundPosition: 'center, center',
+            width: '100%',
+            position: 'relative'}}>
+            {/* <img src="/images/insurance-main.jpg"></img> */}
+            <div>
+                <div style={{position: 'absolute', maxWidth: '500px', bottom: '0rem', marginLeft: '2rem'}}>
+                    <h2 style={{color: 'white'}}> Insurance </h2>
+                    <p style={{color: 'white', fontSize: '1rem'}}> 공공데이터포털 rest api 를 통한 보험 상품 종류 </p>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+export default MainImage
