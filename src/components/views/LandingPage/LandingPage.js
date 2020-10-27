@@ -1,42 +1,40 @@
 import React, {useEffect, useState} from 'react'
-import { FaCode } from "react-icons/fa";
-import { PRODUCT_API_URL, API_KEY } from '../../Config';
-import axios from 'axios';
 import MainImage from './Sections/MainImage';
 import GridCards from '../commons/GridCards';
 import { Button, Row } from 'antd';
+import { product } from '../../../_actions/insurance_actions';
+import { useDispatch } from "react-redux";
 
 function LandingPage() {
-
+    const dispatch = useDispatch();
     const [InssuranceDatas, setInssuranceDatas] = useState([]);
     const [Insurances, setInsurances] = useState([]);
     const [MaxLength, setMaxLength] = useState(0);
     const [Cnt, setCnt] = useState(0);
     
     useEffect(() => {
-        // const endpoint = `${PRODUCT_API_URL}?serviceKey=${API_KEY}&GOOD_ABNM=`;
-        // fetch(endpoint)
-        // .then(response => console.log(response));
 
-        const request = axios.get(`${PRODUCT_API_URL}?serviceKey=${API_KEY}&GOOD_ABNM=`)
-        .then(response => {
+        let body = {goodAbnm: ''};
+        dispatch(product(body))
+            .then(response => {
+                console.log(response.payload.products);
 
-            const item = response.data.response.body.items.item;
-            const maxLength = Math.floor(item.length/12) + 1;
+                const products = response.payload.products;
+                const maxLength = Math.floor(products.length/12) + 1;
 
-            setMaxLength(maxLength);
-            
-            for (let i = 0; i < maxLength; i++) {
-                InssuranceDatas[i] = [];
-                for(let j = 0; j < 12; j++) {
-                    InssuranceDatas[i][j] = item.shift(0);
+                setMaxLength(maxLength);
+                
+                for (let i = 0; i < maxLength; i++) {
+                    InssuranceDatas[i] = [];
+                    for(let j = 0; j < 12; j++) {
+                        InssuranceDatas[i][j] = products.shift(0);
+                    }
                 }
-            }
+                
+                setInssuranceDatas(InssuranceDatas);
+                setInsurances(InssuranceDatas[Cnt]);
+            });
             
-            setInssuranceDatas(InssuranceDatas);
-            setInsurances(InssuranceDatas[Cnt]);
-        });
-
     }, []);
 
     const loadMore = () => {

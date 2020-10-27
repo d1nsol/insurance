@@ -1,24 +1,24 @@
 import React, { useEffect, useState } from 'react'
-import { API_KEY, PRODUCT_API_URL } from '../../Config'
-import axios from 'axios';
 import { Button } from 'antd';
 import InsuranceInfo from './Sections/InsuranceInfo';
+import { product } from '../../../_actions/insurance_actions';
+import { useDispatch } from "react-redux";
 
 function InsuranceDetail(props) {
+    const dispatch = useDispatch();
 
     let goodAbnm = props.match.params.goodAbnm;
     const [Insurance, setInsurance] = useState([]);
 
     useEffect(() => {
 
-        const request = axios.get(`${PRODUCT_API_URL}?serviceKey=${API_KEY}&GOOD_ABNM=${goodAbnm}`)
-        .then(response => {
+        let body = {goodAbnm: `${goodAbnm}`};
+        dispatch(product(body))
+            .then(response => {
+                console.log(response.payload.products);
+                setInsurance(response.payload.products[0])
+            });
 
-            const item = response.data.response.body.items.item;
-            console.log(item[0]);
-
-            setInsurance(item[0]);
-        });
     }, [])
 
     return (
