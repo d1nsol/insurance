@@ -10,3 +10,12 @@ export function product(dataToSubmit) {
         payload: request
     }
 }
+
+export function terms(dataToSubmit) {
+    const request = axios.post(`${INSURANCE_SERVER}/terms`, dataToSubmit)
+        .then(reponse => reponse.data);
+    return {
+        type: TEMRS_INSURANCE,
+        payload: request
+    }
+}
