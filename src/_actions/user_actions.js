@@ -28,7 +28,10 @@ export function loginUser(dataToSubmit){
 }
 
 export function auth(){
-    const request = axios.get(`${USER_SERVER}/auth`)
+    const x_auth = window.localStorage.getItem('x_auth');
+    let body = {x_auth: !!x_auth ? x_auth : ''};
+    
+    const request = axios.post(`${USER_SERVER}/auth`, body)
     .then(response => response.data);
 
     return {

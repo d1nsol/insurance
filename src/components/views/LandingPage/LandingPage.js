@@ -52,7 +52,9 @@ function LandingPage() {
                 <MainImage />
 
                 <div style={{width: '100%'}}>
-                    <h2>Insurance by data.go.kr</h2>
+                    <div style={{margin: '1rem', position: 'relative'}}>
+                        <h2>Insurance by data.go.kr</h2>
+                    </div>
                     <hr />
 
                     {/* grid */}
